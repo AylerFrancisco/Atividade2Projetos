@@ -4,14 +4,14 @@
  */
 package model;
 
-import collection.ElementoCollection;
+import collection.ElementosCollection;
 import java.util.ArrayList;
 
 /**
  *
  * @author Ayler
  */
-public class BubbleSortOrdenacao extends Ordenacao {
+public class BubbleSortOrdenacao extends Ordena {
 
     public BubbleSortOrdenacao() {
         super();
@@ -19,18 +19,18 @@ public class BubbleSortOrdenacao extends Ordenacao {
     }
 
     @Override
-    public void realizarOrdenarcao(ElementoCollection elementoCollection, Boolean direcao) {
-        ArrayList<Double> arraySelecao = elementoCollection.getElementos();
+    public void realizarOrdenarcao(ElementosCollection elementoCollection, Boolean direcao) {
+        ArrayList<Double> arrayElements = elementoCollection.getElementos();
         boolean sorted = false;
         double temp;
         if (direcao == true) {
             while (!sorted) {
                 sorted = true;
-                for (int i = 0; i < arraySelecao.size() - 1; i++) {
-                    if (arraySelecao.get(i).compareTo(arraySelecao.get(i + 1)) > 0) {
-                        temp = arraySelecao.get(i);
-                        arraySelecao.set(i, arraySelecao.get(i + 1));
-                        arraySelecao.set(i + 1, temp);
+                for (int i = 0; i < arrayElements.size() - 1; i++) {
+                    if (arrayElements.get(i).compareTo(arrayElements.get(i + 1)) > 0) {
+                        temp = arrayElements.get(i);
+                        arrayElements.set(i, arrayElements.get(i + 1));
+                        arrayElements.set(i + 1, temp);
                         sorted = false;
                     }
                 }
@@ -38,18 +38,18 @@ public class BubbleSortOrdenacao extends Ordenacao {
         } else {
             while (!sorted) {
                 sorted = true;
-                for (int i = 0; i < arraySelecao.size() - 1; i++) {
-                    if (arraySelecao.get(i).compareTo(arraySelecao.get(i + 1)) < 0) {
-                        temp = arraySelecao.get(i);
-                        arraySelecao.set(i, arraySelecao.get(i + 1));
-                        arraySelecao.set(i + 1, temp);
+                for (int i = 0; i < arrayElements.size() - 1; i++) {
+                    if (arrayElements.get(i).compareTo(arrayElements.get(i + 1)) < 0) {
+                        temp = arrayElements.get(i);
+                        arrayElements.set(i, arrayElements.get(i + 1));
+                        arrayElements.set(i + 1, temp);
                         sorted = false;
                     }
                 }
             }
         }
 
-        elementoCollection.setElementos(arraySelecao);
+        elementoCollection.setElementos(arrayElements);
     }
 
     @Override

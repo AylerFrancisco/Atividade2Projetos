@@ -4,13 +4,12 @@
  */
 package service;
 
-import collection.ElementoCollection;
+import collection.ElementosCollection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -19,7 +18,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class LerSalarioArqService {
 
-    public ElementoCollection realizarLeitura() throws FileNotFoundException {
+    public ElementosCollection realizarLeituraArq() throws FileNotFoundException {
         ArrayList<Double> nums = new ArrayList<>();
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -47,6 +46,8 @@ public class LerSalarioArqService {
             }
         }
 
-        return new ElementoCollection(nums);
+        return new ElementosCollection(nums);
+        
     }
+
 }

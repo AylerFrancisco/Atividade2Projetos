@@ -4,14 +4,14 @@
  */
 package model;
 
-import collection.ElementoCollection;
+import collection.ElementosCollection;
 import java.util.ArrayList;
 
 /**
  *
  * @author Ayler
  */
-public class SelectionSortOrdenacao extends Ordenacao {
+public class SelectionSortOrdenacao extends Ordena {
 
     private String nomeMetodo;
 
@@ -21,41 +21,41 @@ public class SelectionSortOrdenacao extends Ordenacao {
     }
 
     @Override
-    public void realizarOrdenarcao(ElementoCollection elementoCollection, Boolean direcao) {
-        ArrayList<Double> arraySelecao = elementoCollection.getElementos();
+    public void realizarOrdenarcao(ElementosCollection elementoCollection, Boolean direcao) {
+        ArrayList<Double> arrayElements = elementoCollection.getElementos();
         if (direcao == true) {
 
-            for (int posicaoAtual = 0; posicaoAtual < arraySelecao.size(); posicaoAtual++) {
+            for (int posicaoAtual = 0; posicaoAtual < arrayElements.size(); posicaoAtual++) {
 
                 int indexPosicao = posicaoAtual;
-                for (int posicaoAuxiliar = posicaoAtual; posicaoAuxiliar < arraySelecao.size(); posicaoAuxiliar++) {
-                    if (arraySelecao.get(posicaoAuxiliar) < arraySelecao.get(indexPosicao)) {
+                for (int posicaoAuxiliar = posicaoAtual; posicaoAuxiliar < arrayElements.size(); posicaoAuxiliar++) {
+                    if (arrayElements.get(posicaoAuxiliar) < arrayElements.get(indexPosicao)) {
                         indexPosicao = posicaoAuxiliar;
                     }
                 }
 
-                double min = arraySelecao.get(indexPosicao);
-                arraySelecao.set(indexPosicao, arraySelecao.get(posicaoAtual));
-                arraySelecao.set(posicaoAtual, min);
+                double min = arrayElements.get(indexPosicao);
+                arrayElements.set(indexPosicao, arrayElements.get(posicaoAtual));
+                arrayElements.set(posicaoAtual, min);
             }
         } else {
-            for (int posicaoAtual = 0; posicaoAtual < arraySelecao.size(); posicaoAtual++) {
+            for (int posicaoAtual = 0; posicaoAtual < arrayElements.size(); posicaoAtual++) {
 
                 int indexPosicao = posicaoAtual;
-                for (int posicaoAuxiliar = posicaoAtual; posicaoAuxiliar < arraySelecao.size(); posicaoAuxiliar++) {
-                    if (arraySelecao.get(posicaoAuxiliar) > arraySelecao.get(indexPosicao)) {
+                for (int posicaoAuxiliar = posicaoAtual; posicaoAuxiliar < arrayElements.size(); posicaoAuxiliar++) {
+                    if (arrayElements.get(posicaoAuxiliar) > arrayElements.get(indexPosicao)) {
                         indexPosicao = posicaoAuxiliar;
                     }
                 }
 
-                double min = arraySelecao.get(indexPosicao);
-                arraySelecao.set(indexPosicao, arraySelecao.get(posicaoAtual));
-                arraySelecao.set(posicaoAtual, min);
+                double min = arrayElements.get(indexPosicao);
+                arrayElements.set(indexPosicao, arrayElements.get(posicaoAtual));
+                arrayElements.set(posicaoAtual, min);
             }
 
         }
 
-        elementoCollection.setElementos(arraySelecao);
+        elementoCollection.setElementos(arrayElements);
     }
 
     @Override

@@ -4,7 +4,7 @@
  */
 package presenter;
 
-import collection.ElementoCollection;
+import collection.ElementosCollection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -17,9 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.ListModel;
-import model.Ordenacao;
+import model.Ordena;
 import service.LerSalarioArqService;
 import view.OrdenacaoView;
 
@@ -30,10 +31,10 @@ import view.OrdenacaoView;
 public class OrdenacaoPresenter {
 
     private OrdenacaoView view;
-    private ArrayList<Ordenacao> ordenacaoCollection;
+    private ArrayList<Ordena> ordenacaoCollection;
     private LerSalarioArqService lerElementosService;
 
-    public OrdenacaoPresenter(LerSalarioArqService LeOsElementosService, ArrayList<Ordenacao> ordenacaoCollection) {
+    public OrdenacaoPresenter(LerSalarioArqService LeOsElementosService, ArrayList<Ordena> ordenacaoCollection) {
         this.lerElementosService = LeOsElementosService;
         this.ordenacaoCollection = ordenacaoCollection;
 
@@ -46,33 +47,33 @@ public class OrdenacaoPresenter {
     private void initListeners() {
         view.getBtnCarregarArquivo().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
                 carregarArquivo();
 
             }
         });
         JComboBox<String> cbmMetodo = view.getCmbMetodo();
 
-        for (Ordenacao metodoOrdenacao : ordenacaoCollection) {
+        for (Ordena metodoOrdenacao : ordenacaoCollection) {
             cbmMetodo.addItem(metodoOrdenacao.getNomeMetodo());
         }
         view.getBtnOrdenar().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
                 ordenar();
 
             }
         });
         view.getRbtnCrescente().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
                 //mudaRadioBtn();
 
             }
         });
         view.getBtnLimpar().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
                 Limpa();
             }
         });
@@ -80,20 +81,20 @@ public class OrdenacaoPresenter {
     }
 
     private void carregarArquivo() {
-        ElementoCollection elementoColeCollection;
+        ElementosCollection elementoColeCollection;
         try {
-            elementoColeCollection = lerElementosService.realizarLeitura();
+            elementoColeCollection = lerElementosService.realizarLeituraArq();
 
             JList<Double> listaSemOrdenados = view.getLstSemOrdenados();
             listaSemOrdenados.setListData(convertArrayListEmVector(elementoColeCollection.getElementos()));
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(OrdenacaoPresenter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showInternalInputDialog(view, "Erro, Por favor tente novamente!");
         }
 
     }
 
-    private ElementoCollection getElementosNaoOrdenados() {
+    private ElementosCollection getElementosNaoOrdenados() {
         JList<Double> ordenacaoView = view.getLstSemOrdenados();
         int sizeList = ordenacaoView.getModel().getSize();
 
@@ -104,10 +105,10 @@ public class OrdenacaoPresenter {
             elementosNaoOrdenados.add(item);
         }
 
-        return new ElementoCollection(elementosNaoOrdenados);
+        return new ElementosCollection(elementosNaoOrdenados);
     }
 
-    private void setElementosOrdenados(ElementoCollection elementoCollection) {
+    private void setElementosOrdenados(ElementosCollection elementoCollection) {
         view.getLstOrdenados().setListData(convertArrayListEmVector(elementoCollection.getElementos()));
     }
 
@@ -144,9 +145,9 @@ public class OrdenacaoPresenter {
         }
         JComboBox<String> cbmMetodo = view.getCmbMetodo();
         String itemSelecionado = cbmMetodo.getSelectedItem().toString();
-        ElementoCollection elementoCollectionOrdenacao = getElementosNaoOrdenados();
+        ElementosCollection elementoCollectionOrdenacao = getElementosNaoOrdenados();
 
-        for (Ordenacao metodoOrdenacao : ordenacaoCollection) {
+        for (Ordena metodoOrdenacao : ordenacaoCollection) {
             if (itemSelecionado.equals(metodoOrdenacao.getNomeMetodo())) {
                 Instant antes = Instant.now();
 
@@ -165,6 +166,9 @@ public class OrdenacaoPresenter {
     private void Limpa() {
         JButton btnLimpar;
         btnLimpar = view.getBtnLimpar();
+        JList<Double> uen = new JList();
+        ElementosCollection elementoCollectionOrdenacao = getElementosNaoOrdenados();
+        setElementosOrdenados(elementoCollectionOrdenacao);
 
     }
 

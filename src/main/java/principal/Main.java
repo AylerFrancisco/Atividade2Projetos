@@ -7,7 +7,7 @@ package principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import model.BubbleSortOrdenacao;
-import model.Ordenacao;
+import model.Ordena;
 import model.SelectionSortOrdenacao;
 import service.LerSalarioArqService;
 import presenter.OrdenacaoPresenter;
@@ -19,7 +19,7 @@ import presenter.OrdenacaoPresenter;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<Ordenacao> ordenacaoCollection = new ArrayList<Ordenacao>(Arrays.asList(
+        ArrayList<Ordena> ordenacaoCollection = new ArrayList<Ordena>(Arrays.asList(
                 new BubbleSortOrdenacao(),
                 new SelectionSortOrdenacao()
         ));
